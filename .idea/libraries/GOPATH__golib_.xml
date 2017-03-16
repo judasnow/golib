@@ -1,0 +1,86 @@
+<component name="libraryTable">
+  <library name="GOPATH &lt;golib&gt;">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../image" />
+      <root url="file://$PROJECT_DIR$/../storage-srv" />
+      <root url="file://$PROJECT_DIR$/../nonparty-srv" />
+      <root url="file://$PROJECT_DIR$/../push-srv" />
+      <root url="file://$PROJECT_DIR$/../jsongo" />
+      <root url="file://$PROJECT_DIR$/../pk-srv" />
+      <root url="file://$PROJECT_DIR$/../h5" />
+      <root url="file://$PROJECT_DIR$/../user-srv" />
+      <root url="file://$PROJECT_DIR$/../union-api" />
+      <root url="file://$PROJECT_DIR$/../activity-srv" />
+      <root url="file://$PROJECT_DIR$/../golang.org" />
+      <root url="file://$PROJECT_DIR$/../gods" />
+      <root url="file://$PROJECT_DIR$/../message_gate" />
+      <root url="file://$PROJECT_DIR$/../go4.org" />
+      <root url="file://$PROJECT_DIR$/../club-srv" />
+      <root url="file://$PROJECT_DIR$/../data-inbox" />
+      <root url="file://$PROJECT_DIR$/../time-machine-srv" />
+      <root url="file://$PROJECT_DIR$/../gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../clubserver" />
+      <root url="file://$PROJECT_DIR$/../storage-srv-local" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../rank-srv" />
+      <root url="file://$PROJECT_DIR$/../go-linq" />
+      <root url="file://$PROJECT_DIR$/../comment-srv" />
+      <root url="file://$PROJECT_DIR$/../gogogo" />
+      <root url="file://$PROJECT_DIR$/../baymax" />
+      <root url="file://$PROJECT_DIR$/../data-srv" />
+      <root url="file://$PROJECT_DIR$/../util" />
+      <root url="file://$PROJECT_DIR$/../sidecar" />
+      <root url="file://$PROJECT_DIR$/../chevrolet2017" />
+      <root url="file://$PROJECT_DIR$/../openapi" />
+      <root url="file://$PROJECT_DIR$/../union-notify" />
+      <root url="file://$PROJECT_DIR$/../videolive" />
+      <root url="file://$PROJECT_DIR$/../belle.v2017" />
+      <root url="file://$PROJECT_DIR$/../gps-srv" />
+      <root url="file://$PROJECT_DIR$/../api" />
+      <root url="file://$PROJECT_DIR$/../google.golang.org" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../image" />
+      <root url="file://$PROJECT_DIR$/../storage-srv" />
+      <root url="file://$PROJECT_DIR$/../nonparty-srv" />
+      <root url="file://$PROJECT_DIR$/../push-srv" />
+      <root url="file://$PROJECT_DIR$/../jsongo" />
+      <root url="file://$PROJECT_DIR$/../pk-srv" />
+      <root url="file://$PROJECT_DIR$/../h5" />
+      <root url="file://$PROJECT_DIR$/../user-srv" />
+      <root url="file://$PROJECT_DIR$/../union-api" />
+      <root url="file://$PROJECT_DIR$/../activity-srv" />
+      <root url="file://$PROJECT_DIR$/../golang.org" />
+      <root url="file://$PROJECT_DIR$/../gods" />
+      <root url="file://$PROJECT_DIR$/../message_gate" />
+      <root url="file://$PROJECT_DIR$/../go4.org" />
+      <root url="file://$PROJECT_DIR$/../club-srv" />
+      <root url="file://$PROJECT_DIR$/../data-inbox" />
+      <root url="file://$PROJECT_DIR$/../time-machine-srv" />
+      <root url="file://$PROJECT_DIR$/../gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../clubserver" />
+      <root url="file://$PROJECT_DIR$/../storage-srv-local" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../rank-srv" />
+      <root url="file://$PROJECT_DIR$/../go-linq" />
+      <root url="file://$PROJECT_DIR$/../comment-srv" />
+      <root url="file://$PROJECT_DIR$/../gogogo" />
+      <root url="file://$PROJECT_DIR$/../baymax" />
+      <root url="file://$PROJECT_DIR$/../data-srv" />
+      <root url="file://$PROJECT_DIR$/../util" />
+      <root url="file://$PROJECT_DIR$/../sidecar" />
+      <root url="file://$PROJECT_DIR$/../chevrolet2017" />
+      <root url="file://$PROJECT_DIR$/../openapi" />
+      <root url="file://$PROJECT_DIR$/../union-notify" />
+      <root url="file://$PROJECT_DIR$/../videolive" />
+      <root url="file://$PROJECT_DIR$/../belle.v2017" />
+      <root url="file://$PROJECT_DIR$/../gps-srv" />
+      <root url="file://$PROJECT_DIR$/../api" />
+      <root url="file://$PROJECT_DIR$/../google.golang.org" />
+    </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
+  </library>
+</component>
