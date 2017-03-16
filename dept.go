@@ -7,19 +7,10 @@ import (
 	"strings"
 	"github.com/jinzhu/gorm"
 	_ "github.com/go-sql-driver/mysql"
+	lls "github.com/emirpasic/gods/stacks/linkedliststack"
 )
 
-
-type stack []int
-
-func (s stack) Push(v int) stack {
-	return append(s, v)
-}
-
-func (s stack) Pop() (stack, int) {
-	l := len(s)
-	return  s[:l-1], s[l-1]
-}
+// mptt with gorm
 
 var db *gorm.DB
 
@@ -50,7 +41,7 @@ func rebuildTree(parentID int, left int) (int, error) {
 		"lft": left,
 		"rgt": right,
 	}
-	if err := db.Model(&Item{}).Where("parent_id = ?", parentID).Updates(updates).Error; err != nil {
+	if err := db.Model(&Item{}).Where("id = ?", parentID).Updates(updates).Error; err != nil {
 		return 0, err
 	}
 
@@ -64,23 +55,23 @@ func displayTree(root string) error {
 	}
 
 	iteams := []Item{}
-	rightStack := make(stack, 0)
+	rightStack := lls.New()
 	if err := db.Where("lft BETWEEN ? AND ?", rootItem.Lft, rootItem.Rgt).Order("Lft ASC").Find(&iteams).Error; err != nil {
 		return err
 	}
 
 	for _, item := range iteams {
-		if len(rightStack) > 0 {
-			var crt int = rightStack[len(rightStack) - 1]
+		if rightStack.Size() > 0 {
+			crt, _ := rightStack.Peek()
 			for {
-				if crt >= item.Lft {
+				if crt.(int) >= item.Lft {
 					break
 				}
 				rightStack.Pop()
-				crt = rightStack[len(rightStack) - 1]
+				crt, _ = rightStack.Peek()
 			}
 		}
-		fmt.Println(strings.Repeat(" ", len(rightStack)), item.Name)
+		fmt.Println(strings.Repeat("  ", rightStack.Size()), item.Name)
 		rightStack.Push(item.Rgt)
 	}
 
@@ -88,10 +79,6 @@ func displayTree(root string) error {
 }
 
 func create() {
-
-}
-
-func create2() {
 
 }
 
@@ -131,11 +118,12 @@ func main() {
 	db.AutoMigrate(&Item{})
 	db.LogMode(true)
 
-	//if err := displayTree("2"); err != nil {
-	//	log.Fatal(err)
-	//}
-
 	if _, err := rebuildTree(1, 1); err != nil {
 		log.Fatal(err)
 	}
+
+	if err := displayTree("1"); err != nil {
+		log.Fatal(err)
+	}
+
 }
