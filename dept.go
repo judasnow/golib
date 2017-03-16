@@ -78,31 +78,54 @@ func displayTree(root string) error {
 	return nil
 }
 
-func create() {
+func create(name string, parentID int) error {
+	item := Item{
+		Name: name,
+		ParentID: parentID,
+	}
+	if err := db.Create(&item).Error; err != nil {
+		return err
+	}
+	if _, err := rebuildTree(1, 1); err != nil {
+		return err
+	} else {
+		return nil
+	}
+}
+
+func del(id int) {
+	// 删除本部门，同时需要删除所有的子部门
+	// rebuild
+}
+
+// 仅仅需要查询指定节点左右标记之间的元素即可
+func getChildren(id int) ([]Item, error) {
+	item := Item{}
+	if err := db.Where("id = ?", id).Find(&item).Error; err != nil {
+		return []Item{}, err
+	}
+
+	items := []Item{}
+	if err := db.Where("lft BETWEEN ? AND ?", item.Lft, item.Rgt).Find(&items).Error; err != nil {
+		return []Item{}, err
+	}
+
+	return items, nil
+}
+
+func getChildrenCount(id int) {
 
 }
 
-func del() {
+func getDirectChildren(id int) {
 
 }
 
-func getChildren() {
+func getParents(id int) {
 
 }
 
-func getChildrenCount() {
-
-}
-
-func getDirectChildren() {
-
-}
-
-func getParents() {
-
-}
-
-func getParent() {
+func getParent(id int) {
 
 }
 
@@ -118,12 +141,16 @@ func main() {
 	db.AutoMigrate(&Item{})
 	db.LogMode(true)
 
-	if _, err := rebuildTree(1, 1); err != nil {
-		log.Fatal(err)
-	}
+	//if _, err := rebuildTree(1, 1); err != nil {
+	//	log.Fatal(err)
+	//}
 
 	if err := displayTree("1"); err != nil {
 		log.Fatal(err)
 	}
+
+	//if err := create("2-1", 3); err != nil {
+	//	log.Fatal(err)
+	//}
 
 }
