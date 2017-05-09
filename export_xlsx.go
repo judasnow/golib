@@ -5,25 +5,28 @@ import (
 	"reflect"
 	"strings"
 	"time"
-
-	"github.com/tealeg/xlsx"
 	"bytes"
 	"bufio"
+	"errors"
+
+	"github.com/tealeg/xlsx"
 )
 
 const (
 	TAG_NAME = "xlsx"
 	TAG_SPLITER = ";"
-	TAG_KEYSPLITER = ":"
+	TAG_KEY_VALUE_SPLITER = ":"
 )
 
 type Sheet struct {
 	Name string
+	// 应该是一个 []struct
 	Datas interface{}
 }
 
 type Tag struct {
 	Name string
+	// field
 	TimeFormat string
 }
 
@@ -36,29 +39,33 @@ func ExportToXlsx(sheets []Sheet) (bytes.Buffer, error){
 
 	bufferFile := bytes.Buffer{}
 	fileWrite := bufio.NewWriter(&bufferFile)
-	writeErr := file.Write(fileWrite)
-	if writeErr != nil {
-		return bytes.Buffer{}, writeErr
+
+	if err := file.Write(fileWrite); err != nil {
+		return bytes.Buffer{}, err
 	} else {
 		return bufferFile, nil
 	}
 }
 
-func exportToSheet(file *xlsx.File, sheet Sheet) {
+func exportToSheet(file *xlsx.File, sheet Sheet) error {
 	value := reflect.ValueOf(sheet.Datas)
 	kind := value.Kind()
 	if kind != reflect.Slice && kind != reflect.Array {
-		return
+		return errors.New("Sheet.Datas must be Slice or Array")
 	}
 
-	// 取出第一个元素 反射一次 取出所有 tag
+	if value.Len() <= 0 {
+		return errors.New("Sheet.Datas lenght <= 0")
+	}
+
+	// 取出第一个元素 取出其所有 tag
 	firstRow := value.Index(0)
 	tags := getXlsxTags(firstRow)
 
 	// 将刚取出的 tags 作为头部写入 xlsx
 	xlsxSheet, addSheetErr := file.AddSheet(sheet.Name);
 	if addSheetErr != nil {
-		return
+		return addSheetErr
 	}
 
 	row := xlsxSheet.AddRow()
@@ -82,6 +89,8 @@ func exportToSheet(file *xlsx.File, sheet Sheet) {
 			}
 		}
 	}
+
+	return nil
 }
 
 func getXlsxTags(data reflect.Value) []Tag {
@@ -96,12 +105,13 @@ func getXlsxTags(data reflect.Value) []Tag {
 	return tags
 }
 
+// TODO tag 数据格式的验证
 func parseTag(tagString string) Tag {
 	tagInfoArray := strings.Split(tagString, TAG_SPLITER)
 
 	tag := Tag{}
 	for _, _tag := range tagInfoArray {
-		_tagInfoArray := strings.Split(_tag, TAG_KEYSPLITER)
+		_tagInfoArray := strings.Split(_tag, TAG_KEY_VALUE_SPLITER)
 		if _tagInfoArray[0] == "name" {
 			tag.Name = _tagInfoArray[1]
 		} else if _tagInfoArray[0] == "format" {
