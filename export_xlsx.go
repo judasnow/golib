@@ -5,13 +5,24 @@ import (
 	"reflect"
 	//"strconv"
 	"github.com/tealeg/xlsx"
+	"strings"
+	"time"
 )
 
-const TAGNAME = "xlsx"
+const (
+	TAGNAME = "xlsx"
+	TAG_SPLITER = ";"
+	TAG_KEYSPLITER = ":"
+)
 
 type Sheet struct {
 	Name string
 	Datas interface{}
+}
+
+type Tag struct {
+	Name string
+	TimeFormat string
 }
 
 func ExportToXlsx(sheets []Sheet) {
@@ -45,7 +56,8 @@ func exportToSheet(file *xlsx.File, sheet Sheet) {
 	}
 
 	row := xlsxSheet.AddRow()
-	row.WriteSlice(&tags, len(tags))
+	tagNames := pluckTagName(tags)
+	row.WriteSlice(&tagNames, len(tags))
 
 	// 之后循环所有成员 写入 xlsx 文件
 	for lineNo := 0; lineNo < value.Len(); lineNo++ {
@@ -55,18 +67,49 @@ func exportToSheet(file *xlsx.File, sheet Sheet) {
 		for cloumnNo := 0; cloumnNo < row.NumField(); cloumnNo++ {
 			cell := xlsxRow.AddCell()
 			valueField := row.Field(cloumnNo)
-			cell.SetString(fmt.Sprintf("%v", valueField.Interface()))
+
+			switch v := valueField.Interface().(type) {
+			case time.Time:
+				cell.SetString(v.Format(tags[cloumnNo].TimeFormat))
+			default:
+				cell.SetString(fmt.Sprintf("%v", v))
+			}
 		}
 	}
 }
 
-func getXlsxTags(data reflect.Value) []string {
-	tags := []string{}
+func getXlsxTags(data reflect.Value) []Tag {
+	tags := []Tag{}
 
 	for i := 0; i < data.NumField(); i++ {
 		tagValue := data.Type().Field(i).Tag.Get(TAGNAME)
-		tags = append(tags, tagValue)
+		tag := parseTag(tagValue)
+		tags = append(tags, tag)
 	}
 
 	return tags
+}
+
+func parseTag(tagString string) Tag {
+	tagInfoArray := strings.Split(tagString, TAG_SPLITER)
+
+	tag := Tag{}
+	for _, _tag := range tagInfoArray {
+		_tagInfoArray := strings.Split(_tag, TAG_KEYSPLITER)
+		if _tagInfoArray[0] == "name" {
+			tag.Name = _tagInfoArray[1]
+		} else if _tagInfoArray[0] == "format" {
+			tag.TimeFormat = _tagInfoArray[1]
+		}
+	}
+
+	return tag
+}
+
+func pluckTagName(tags []Tag) []string {
+	tagNames := []string{}
+	for _, tag := range tags {
+		tagNames = append(tagNames, tag.Name)
+	}
+	return tagNames
 }
