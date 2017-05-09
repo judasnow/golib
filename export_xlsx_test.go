@@ -27,7 +27,7 @@ func TestExportToXlsx(t *testing.T) {
 			},
 		},
 		{
-			"SHEET2", []S2{
+			"第二个sheet", []S2{
 				{"1", "2", time.Now()},
 			},
 		},

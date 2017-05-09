@@ -105,8 +105,8 @@ func getXlsxTags(data reflect.Value) []Tag {
 	return tags
 }
 
-// TODO tag 数据格式的验证
 func parseTag(tagString string) Tag {
+	// TODO tag 数据格式的验证
 	tagInfoArray := strings.Split(tagString, TAG_SPLITER)
 
 	tag := Tag{}
