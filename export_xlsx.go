@@ -3,7 +3,7 @@ package golib
 import (
 	"fmt"
 	"reflect"
-	"strconv"
+	//"strconv"
 	"github.com/tealeg/xlsx"
 )
 
@@ -34,38 +34,33 @@ func exportToSheet(file *xlsx.File, sheet Sheet) {
 		return
 	}
 
-	// 取出第一个元素 反射一次 取出所有 tag，同时计算出 fields 的数量
+	// 取出第一个元素 反射一次 取出所有 tag
 	firstRow := value.Index(0)
 	tags := getXlsxTags(firstRow)
 
 	// 将刚取出的 tags 作为头部写入 xlsx
-	xlsxSheet, err := file.AddSheet(sheet.Name)
-	if err != nil {
+	xlsxSheet, addSheetErr := file.AddSheet(sheet.Name);
+	if addSheetErr != nil {
 		return
 	}
+
 	row := xlsxSheet.AddRow()
 	row.WriteSlice(&tags, len(tags))
 
 	// 之后循环所有成员 写入 xlsx 文件
-	for i := 0; i < value.Len(); i++ {
-		row := xlsxSheet.AddRow()
-		for j := 0; j < value.Index(i).NumField(); j++ {
-			cell := row.AddCell()
-			valueField := value.Index(i).Field(j)
+	for lineNo := 0; lineNo < value.Len(); lineNo++ {
+		xlsxRow := xlsxSheet.AddRow()
+		row := value.Index(lineNo)
 
-			switch t := valueField.Interface().(type) {
-			case int:
-				cell.SetString(strconv.Itoa(t))
-			case string:
-				cell.SetString(t)
-			}
+		for cloumnNo := 0; cloumnNo < row.NumField(); cloumnNo++ {
+			cell := xlsxRow.AddCell()
+			valueField := row.Field(cloumnNo)
+			cell.SetString(fmt.Sprintf("%v", valueField.Interface()))
 		}
 	}
 }
 
 func getXlsxTags(data reflect.Value) []string {
-	// TODO 检测必须是 struct
-
 	tags := []string{}
 
 	for i := 0; i < data.NumField(); i++ {
