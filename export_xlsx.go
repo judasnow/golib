@@ -12,6 +12,7 @@ import (
 	"github.com/tealeg/xlsx"
 )
 
+// `xlsx:"name:name;format:2006-01-02"`
 const (
 	TAG_NAME = "xlsx"
 	TAG_SPLITER = ";"
@@ -26,7 +27,7 @@ type Sheet struct {
 
 type Tag struct {
 	Name string
-	// field
+	// field 类型为 time.Time 时可指定其格式
 	TimeFormat string
 }
 
