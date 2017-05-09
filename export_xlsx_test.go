@@ -3,6 +3,7 @@ package golib
 import (
 	"testing"
 	"time"
+	"fmt"
 )
 
 func TestExportToXlsx(t *testing.T) {
@@ -10,6 +11,7 @@ func TestExportToXlsx(t *testing.T) {
 		Foo string `xlsx:"name:foo"`
 		Baz string `xlsx:"name:baz"`
 		Bar int `xlsx:"name:bar"`
+		FooBar float64 `xlsx:"name:foobar"`
 	}
 
 	type S2 struct {
@@ -19,9 +21,17 @@ func TestExportToXlsx(t *testing.T) {
 	}
 
 	sheets := []Sheet{
-		{"SHEET1", []S1{{"1", "2", 3}}},
-		{"SHEET2", []S2{{"1", "2", time.Now()}}},
+		{
+			"SHEET1", []S1{
+				{"1", "2", 3, 3.14},
+			},
+		},
+		{
+			"SHEET2", []S2{
+				{"1", "2", time.Now()},
+			},
+		},
 	}
 
-	ExportToXlsx(sheets)
+	fmt.Println(ExportToXlsx(sheets))
 }

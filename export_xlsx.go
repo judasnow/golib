@@ -3,14 +3,16 @@ package golib
 import (
 	"fmt"
 	"reflect"
-	//"strconv"
-	"github.com/tealeg/xlsx"
 	"strings"
 	"time"
+
+	"github.com/tealeg/xlsx"
+	"bytes"
+	"bufio"
 )
 
 const (
-	TAGNAME = "xlsx"
+	TAG_NAME = "xlsx"
 	TAG_SPLITER = ";"
 	TAG_KEYSPLITER = ":"
 )
@@ -25,16 +27,20 @@ type Tag struct {
 	TimeFormat string
 }
 
-func ExportToXlsx(sheets []Sheet) {
+func ExportToXlsx(sheets []Sheet) (bytes.Buffer, error){
 	file := xlsx.NewFile()
 
 	for _, sheet := range sheets {
 		exportToSheet(file, sheet)
 	}
 
-	if err := file.Save("export_xlsx.xlsx"); err != nil {
-		fmt.Printf(err.Error())
-		return
+	bufferFile := bytes.Buffer{}
+	fileWrite := bufio.NewWriter(&bufferFile)
+	writeErr := file.Write(fileWrite)
+	if writeErr != nil {
+		return bytes.Buffer{}, writeErr
+	} else {
+		return bufferFile, nil
 	}
 }
 
@@ -82,7 +88,7 @@ func getXlsxTags(data reflect.Value) []Tag {
 	tags := []Tag{}
 
 	for i := 0; i < data.NumField(); i++ {
-		tagValue := data.Type().Field(i).Tag.Get(TAGNAME)
+		tagValue := data.Type().Field(i).Tag.Get(TAG_NAME)
 		tag := parseTag(tagValue)
 		tags = append(tags, tag)
 	}
