@@ -3,7 +3,7 @@ package golib
 import (
 	"testing"
 	"time"
-	"fmt"
+	"io/ioutil"
 )
 
 func TestExportToXlsx(t *testing.T) {
@@ -33,5 +33,6 @@ func TestExportToXlsx(t *testing.T) {
 		},
 	}
 
-	fmt.Println(ExportToXlsx(sheets))
+	xlsxFileContent, _ := ExportToXlsx(sheets)
+	ioutil.WriteFile("export_xlsx.xlsx", xlsxFileContent, 0644)
 }

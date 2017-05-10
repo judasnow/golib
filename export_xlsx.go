@@ -5,9 +5,8 @@ import (
 	"reflect"
 	"strings"
 	"time"
-	"bytes"
-	"bufio"
 	"errors"
+	"bytes"
 
 	"github.com/tealeg/xlsx"
 )
@@ -19,32 +18,35 @@ const (
 	TAG_KEY_VALUE_SPLITER = ":"
 )
 
+// xlsx 文件的一个 sheet
 type Sheet struct {
 	Name string
 	// 应该是一个 []struct
 	Datas interface{}
 }
 
+// column 元信息
 type Tag struct {
 	Name string
 	// field 类型为 time.Time 时可指定其格式
 	TimeFormat string
 }
 
-func ExportToXlsx(sheets []Sheet) (bytes.Buffer, error){
+func ExportToXlsx(sheets []Sheet) ([]byte, error){
 	file := xlsx.NewFile()
 
 	for _, sheet := range sheets {
-		exportToSheet(file, sheet)
+		if err := exportToSheet(file, sheet); err != nil {
+			return []byte{}, err
+		}
 	}
 
 	bufferFile := bytes.Buffer{}
-	fileWrite := bufio.NewWriter(&bufferFile)
 
-	if err := file.Write(fileWrite); err != nil {
-		return bytes.Buffer{}, err
+	if err := file.Write(&bufferFile); err != nil {
+		return []byte{}, err
 	} else {
-		return bufferFile, nil
+		return bufferFile.Bytes(), nil
 	}
 }
 
@@ -52,11 +54,11 @@ func exportToSheet(file *xlsx.File, sheet Sheet) error {
 	value := reflect.ValueOf(sheet.Datas)
 	kind := value.Kind()
 	if kind != reflect.Slice && kind != reflect.Array {
-		return errors.New("Sheet.Datas must be Slice or Array")
+		return errors.New("Sheet.Datas 类型需要是 Slice 或 Array")
 	}
 
 	if value.Len() <= 0 {
-		return errors.New("Sheet.Datas lenght <= 0")
+		return errors.New("Sheet.Datas 长度不能小于 0")
 	}
 
 	// 取出第一个元素 取出其所有 tag
