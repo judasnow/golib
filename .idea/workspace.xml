@@ -4,7 +4,6 @@
     <list default="true" id="bb1803ef-d68c-4aff-8a3a-bf2c49cc044e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/export_xlsx.go" afterPath="$PROJECT_DIR$/export_xlsx.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/export_xlsx_test.go" afterPath="$PROJECT_DIR$/export_xlsx_test.go" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,8 +25,8 @@
       <file leaf-file-name="export_xlsx.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/export_xlsx.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="745">
-              <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
+            <state relative-caret-position="841">
+              <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -121,7 +120,7 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="173" />
+    <option name="x" value="297" />
     <option name="y" value="22" />
     <option name="width" value="1422" />
     <option name="height" value="1057" />
@@ -809,15 +808,15 @@
       <workItem from="1491390328100" duration="1992000" />
       <workItem from="1492568575087" duration="843000" />
       <workItem from="1494297382615" duration="23379000" />
-      <workItem from="1494395045711" duration="2032000" />
+      <workItem from="1494395045711" duration="2603000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50106000" />
+    <option name="totallyTimeSpent" value="50677000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="173" y="22" width="1422" height="1057" extended-state="0" />
+    <frame x="297" y="22" width="1422" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1144,8 +1143,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/export_xlsx.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="745">
-          <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
+        <state relative-caret-position="841">
+          <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
           <folding />
         </state>
       </provider>

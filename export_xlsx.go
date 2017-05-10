@@ -108,27 +108,31 @@ func getXlsxTags(data reflect.Value) []Tag {
 	return tags
 }
 
+// 解析 tag
 func parseTag(tagString string) Tag {
-	// TODO tag 数据格式的验证
-	tagInfoArray := strings.Split(tagString, TAG_SPLITER)
+	tagItems := strings.Split(tagString, TAG_SPLITER)
 
 	tag := Tag{}
-	for _, _tag := range tagInfoArray {
-		_tagInfoArray := strings.Split(_tag, TAG_KEY_VALUE_SPLITER)
-		if _tagInfoArray[0] == "name" {
-			tag.Name = _tagInfoArray[1]
-		} else if _tagInfoArray[0] == "format" {
-			tag.TimeFormat = _tagInfoArray[1]
+	for _, tagItem := range tagItems {
+		tagItemPair := strings.Split(tagItem, TAG_KEY_VALUE_SPLITER)
+
+		if tagItemPair[0] == "name" {
+			tag.Name = tagItemPair[1]
+		} else if tagItemPair[0] == "format" {
+			tag.TimeFormat = tagItemPair[1]
 		}
 	}
 
 	return tag
 }
 
+// 取出所有 tag.Name
 func pluckTagName(tags []Tag) []string {
 	tagNames := []string{}
+
 	for _, tag := range tags {
 		tagNames = append(tagNames, tag.Name)
 	}
+
 	return tagNames
 }
