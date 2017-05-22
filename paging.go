@@ -44,6 +44,24 @@ func PagingLoop(total int, perPage int, crtPage int, f func(limit int, offset in
 			}
 			crtPage = crtPage + 1
 		}
-
 	}
 }
+
+// 同样的 返回 false 会停止循环
+func SlicePagingLoop(slice []interface{}, perPage int, crtPage int, f func(slicePerPage []interface{}) bool) {
+	var total int = len(slice)
+
+	PagingLoop(total, perPage, crtPage, func(limit int, offset int) bool {
+		// 防止最后一页不满 limit 的情况，会导致 index 越界错误
+		var _limit int = 0
+
+		if total - offset >= limit {
+			_limit = limit
+		} else {
+			_limit = total - offset
+		}
+
+		return f(slice[offset:_limit+offset])
+	})
+}
+

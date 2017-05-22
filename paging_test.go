@@ -56,3 +56,29 @@ func TestPagingLoop(t *testing.T) {
 		return true
 	})
 }
+
+// 对 slice 进行分页显示
+func TestPagingLoop2(t *testing.T) {
+	x := []interface{}{1,2,3,4,5,6,7,8,9,10}
+	SlicePagingLoop(x, 3, 1, func(subSlice []interface{}) bool {
+		fmt.Println(subSlice)
+		return true
+	})
+}
+
+// 第一次返回 false 停止循环
+func TestPagingLoopReutrnFalse(t *testing.T) {
+	x := []interface{}{1,2,3,4,5,6,7,8,9,10}
+	SlicePagingLoop(x, 3, 1, func(subSlice []interface{}) bool {
+		fmt.Println(subSlice)
+		return false
+	})
+}
+
+func TestPagingLoopEmptySlice(t *testing.T) {
+	x := []interface{}{}
+	SlicePagingLoop(x, 3, 1, func(subSlice []interface{}) bool {
+		fmt.Println(subSlice)
+		return true
+	})
+}
