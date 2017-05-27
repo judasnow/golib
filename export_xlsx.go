@@ -103,7 +103,7 @@ func exportToSheet(file *xlsx.File, sheet Sheet) error {
 			}
 		}
 
-		// 写入相应的额外数据
+		// 写入相应的额外数据 额外数据类型只能是 string
 		if sheet.ExtraDatas != nil {
 			for _, dataRow := range sheet.ExtraDatas[lineNo+1] {
 				cell := xlsxRow.AddCell()
@@ -113,6 +113,7 @@ func exportToSheet(file *xlsx.File, sheet Sheet) error {
 				}
 			}
 		}
+
 	}
 
 	return nil

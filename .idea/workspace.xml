@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb1803ef-d68c-4aff-8a3a-bf2c49cc044e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/export_xlsx.go" afterPath="$PROJECT_DIR$/export_xlsx.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/export_xlsx_test.go" afterPath="$PROJECT_DIR$/export_xlsx_test.go" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,8 +45,8 @@
       <file leaf-file-name="export_xlsx.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/export_xlsx.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="86" column="24" selection-start-line="86" selection-start-column="24" selection-end-line="86" selection-end-column="24" />
+            <state relative-caret-position="674">
+              <caret line="105" column="37" selection-start-line="105" selection-start-column="37" selection-end-line="105" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -133,8 +131,8 @@
         <option value="$PROJECT_DIR$/traversal_json.go" />
         <option value="$PROJECT_DIR$/paging.go" />
         <option value="$PROJECT_DIR$/paging_test.go" />
-        <option value="$PROJECT_DIR$/export_xlsx.go" />
         <option value="$PROJECT_DIR$/export_xlsx_test.go" />
+        <option value="$PROJECT_DIR$/export_xlsx.go" />
       </list>
     </option>
   </component>
@@ -877,7 +875,7 @@
       <workItem from="1495420500482" duration="537000" />
       <workItem from="1495422382865" duration="4630000" />
       <workItem from="1495854358647" duration="4943000" />
-      <workItem from="1495870962438" duration="2511000" />
+      <workItem from="1495870962438" duration="3731000" />
     </task>
     <servers />
   </component>
@@ -905,7 +903,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71127000" />
+    <option name="totallyTimeSpent" value="72347000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="251" y="22" width="1520" height="1058" extended-state="0" />
@@ -1204,8 +1202,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/export_xlsx.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="86" column="24" selection-start-line="86" selection-start-column="24" selection-end-line="86" selection-end-column="24" />
+        <state relative-caret-position="674">
+          <caret line="105" column="37" selection-start-line="105" selection-start-column="37" selection-end-line="105" selection-end-column="37" />
           <folding />
         </state>
       </provider>
