@@ -21,8 +21,10 @@ const (
 // xlsx 文件的一个 sheet
 type Sheet struct {
 	Name string
-	// 应该是一个 []struct
+	// 类型应该是一个 []struct
 	Datas interface{}
+	// 额外的数据 [][]interface{}
+	ExtraDatas [][]interface{}
 }
 
 // column 元信息
@@ -73,7 +75,16 @@ func exportToSheet(file *xlsx.File, sheet Sheet) error {
 
 	row := xlsxSheet.AddRow()
 	tagNames := pluckTagName(tags)
-	row.WriteSlice(&tagNames, len(tags))
+
+	// 创建并写入标题
+	titles := tagNames
+	if sheet.ExtraDatas != nil {
+		for _, title := range sheet.ExtraDatas[0] {
+			titleStr := title.(string)
+			titles = append(titles, titleStr)
+		}
+	}
+	row.WriteSlice(&titles, len(titles))
 
 	// 之后循环所有成员 写入 xlsx 文件
 	for lineNo := 0; lineNo < value.Len(); lineNo++ {
@@ -89,6 +100,17 @@ func exportToSheet(file *xlsx.File, sheet Sheet) error {
 				cell.SetString(v.Format(tags[cloumnNo].TimeFormat))
 			default:
 				cell.SetString(fmt.Sprintf("%v", v))
+			}
+		}
+
+		// 写入相应的额外数据
+		if sheet.ExtraDatas != nil {
+			for _, dataRow := range sheet.ExtraDatas[lineNo+1] {
+				cell := xlsxRow.AddCell()
+				switch v := dataRow.(type) {
+				default:
+					cell.SetString(fmt.Sprintf("%v", v))
+				}
 			}
 		}
 	}

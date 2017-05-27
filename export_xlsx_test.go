@@ -22,14 +22,23 @@ func TestExportToXlsx(t *testing.T) {
 
 	sheets := []Sheet{
 		{
-			"SHEET1", []S1{
+			"SHEET1",
+			[]S1{
 				{"1", "2", 3, 3.14},
+				{"1", "2", 4, 14},
+			},
+			[][]interface{}{
+				{"2017-05-01", "2017-05-06",},
+				{1, 2},
+				{3, 4},
 			},
 		},
 		{
-			"第二个sheet", []S2{
+			"第二个sheet",
+			[]S2{
 				{"1", "2", time.Now()},
 			},
+			nil,
 		},
 	}
 
