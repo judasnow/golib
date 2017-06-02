@@ -53,6 +53,7 @@ func ExportToXlsx(sheets []Sheet) ([]byte, error){
 }
 
 func exportToSheet(file *xlsx.File, sheet Sheet) error {
+	value := reflect.ValueOf(sheet.Datas)
 	elemType := reflect.TypeOf(sheet.Datas).Elem()
 	kind := elemType.Kind()
 	if kind != reflect.Slice && kind != reflect.Array {
