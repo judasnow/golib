@@ -59,13 +59,7 @@ func exportToSheet(file *xlsx.File, sheet Sheet) error {
 		return errors.New("Sheet.Datas 类型需要是 Slice 或 Array")
 	}
 
-	if value.Len() <= 0 {
-		return errors.New("Sheet.Datas 长度不能小于 0")
-	}
-
-	// 取出第一个元素 取出其所有 tag
-	firstRow := value.Index(0)
-	tags := getXlsxTags(firstRow)
+	tags := getXlsxTags(reflect.TypeOf(sheet.Datas).Elem())
 
 	// 将刚取出的 tags 作为头部写入 xlsx
 	xlsxSheet, addSheetErr := file.AddSheet(sheet.Name);
@@ -119,11 +113,11 @@ func exportToSheet(file *xlsx.File, sheet Sheet) error {
 	return nil
 }
 
-func getXlsxTags(data reflect.Value) []Tag {
+func getXlsxTags(data reflect.Type) []Tag {
 	tags := []Tag{}
 
 	for i := 0; i < data.NumField(); i++ {
-		tagValue := data.Type().Field(i).Tag.Get(TAG_NAME)
+		tagValue := data.Field(i).Tag.Get(TAG_NAME)
 		tag := parseTag(tagValue)
 		tags = append(tags, tag)
 	}
