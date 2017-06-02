@@ -91,6 +91,12 @@ func exportToSheet(file *xlsx.File, sheet Sheet) error {
 			valueField := row.Field(cloumnNo)
 
 			switch v := valueField.Interface().(type) {
+			case bool:
+				if v {
+					cell.SetString("是")
+				} else {
+					cell.SetString("否")
+				}
 			case time.Time:
 				cell.SetString(v.Format(tags[cloumnNo].TimeFormat))
 			default:

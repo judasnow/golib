@@ -35,8 +35,8 @@
       <file leaf-file-name="export_xlsx.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/export_xlsx.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-736">
-              <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
+            <state relative-caret-position="414">
+              <caret line="97" column="37" selection-start-line="97" selection-start-column="37" selection-end-line="97" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -904,7 +904,7 @@
       <workItem from="1496213329736" duration="392000" />
       <workItem from="1496284874665" duration="149000" />
       <workItem from="1496285625596" duration="14000" />
-      <workItem from="1496393956457" duration="1454000" />
+      <workItem from="1496393956457" duration="1703000" />
     </task>
     <servers />
   </component>
@@ -938,7 +938,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80024000" />
+    <option name="totallyTimeSpent" value="80273000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="329" y="22" width="1467" height="1058" extended-state="0" />
@@ -1238,8 +1238,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/export_xlsx.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-736">
-          <caret line="55" column="10" selection-start-line="55" selection-start-column="10" selection-end-line="55" selection-end-column="10" />
+        <state relative-caret-position="414">
+          <caret line="97" column="37" selection-start-line="97" selection-start-column="37" selection-end-line="97" selection-end-column="37" />
           <folding />
         </state>
       </provider>
