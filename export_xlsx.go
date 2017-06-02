@@ -53,13 +53,13 @@ func ExportToXlsx(sheets []Sheet) ([]byte, error){
 }
 
 func exportToSheet(file *xlsx.File, sheet Sheet) error {
-	value := reflect.ValueOf(sheet.Datas)
-	kind := value.Kind()
+	elemType := reflect.TypeOf(sheet.Datas).Elem()
+	kind := elemType.Kind()
 	if kind != reflect.Slice && kind != reflect.Array {
 		return errors.New("Sheet.Datas 类型需要是 Slice 或 Array")
 	}
 
-	tags := getXlsxTags(reflect.TypeOf(sheet.Datas).Elem())
+	tags := getXlsxTags(elemType)
 
 	// 将刚取出的 tags 作为头部写入 xlsx
 	xlsxSheet, addSheetErr := file.AddSheet(sheet.Name);
