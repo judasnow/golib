@@ -34,8 +34,18 @@
       <file leaf-file-name="export_xlsx.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/export_xlsx.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="110" column="64" lean-forward="false" selection-start-line="110" selection-start-column="64" selection-end-line="110" selection-end-column="64" />
+            <state relative-caret-position="530">
+              <caret line="175" column="18" lean-forward="false" selection-start-line="175" selection-start-column="18" selection-end-line="175" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.go" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/Cellar/go/1.8.2/libexec/src/strings/strings.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="161">
+              <caret line="282" column="5" lean-forward="false" selection-start-line="282" selection-start-column="5" selection-end-line="282" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -777,7 +787,7 @@
       <workItem from="1496397087094" duration="288000" />
       <workItem from="1496399339056" duration="1936000" />
       <workItem from="1496545738989" duration="65000" />
-      <workItem from="1496631092351" duration="6002000" />
+      <workItem from="1496631092351" duration="6746000" />
     </task>
     <servers />
   </component>
@@ -814,7 +824,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88667000" />
+    <option name="totallyTimeSpent" value="89411000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="242" y="22" width="1576" height="1058" extended-state="0" />
@@ -1101,14 +1111,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/Cellar/go/1.8.2/libexec/src/strings/strings.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1814">
-          <caret line="276" column="0" lean-forward="false" selection-start-line="276" selection-start-column="0" selection-end-line="276" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/export_xlsx_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="251">
@@ -1117,10 +1119,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/Cellar/go/1.8.2/libexec/src/strings/strings.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="282" column="5" lean-forward="false" selection-start-line="282" selection-start-column="5" selection-end-line="282" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/export_xlsx.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="110" column="64" lean-forward="false" selection-start-line="110" selection-start-column="64" selection-end-line="110" selection-end-column="64" />
+        <state relative-caret-position="530">
+          <caret line="175" column="18" lean-forward="false" selection-start-line="175" selection-start-column="18" selection-end-line="175" selection-end-column="18" />
           <folding />
         </state>
       </provider>

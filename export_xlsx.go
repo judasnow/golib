@@ -158,7 +158,7 @@ func parseTag(tagString string) tag {
 			tag.TimeFormat = tagItemPair[1]
 		} else if tagItemPair[0] == "booltext" {
 			value := tagItemPair[1]
-			_boolText, _ := parseBooltextTag(value)
+			_boolText := parseBooltextTag(value)
 			tag.BoolText = _boolText
 		}
 	}
@@ -167,12 +167,20 @@ func parseTag(tagString string) tag {
 }
 
 // 解析 tag 中的 booltext
-func parseBooltextTag(value string) (boolText, error) {
+func parseBooltextTag(value string) boolText {
 	booltextArgs := strings.Split(value, booltext_spliter)
-	return boolText{
-		booltextArgs[0],
-		booltextArgs[1],
-	}, nil
+	if len(booltextArgs) != 2 {
+		// 用户设置的格式错误，不返回错误，使用默认值替代
+		return boolText{
+			"true",
+			"false",
+		}
+	} else {
+		return boolText{
+			booltextArgs[0],
+			booltextArgs[1],
+		}
+	}
 }
 
 func pluckTagName(tags []tag) []string {
