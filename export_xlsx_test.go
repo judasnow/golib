@@ -12,6 +12,7 @@ func TestExportToXlsx(t *testing.T) {
 		Baz string `xlsx:"name:baz"`
 		Bar int `xlsx:"name:bar"`
 		FooBar float64 `xlsx:"name:foobar"`
+		FooBool bool `xlsx:"name:foobool;booltext:是的,不是;"`
 	}
 
 	type S2 struct {
@@ -24,8 +25,8 @@ func TestExportToXlsx(t *testing.T) {
 		{
 			"SHEET1",
 			[]S1{
-				{"1", "2", 3, 3.14},
-				{"1", "2", 4, 14},
+				{"1", "2", 3, 3.14, false},
+				{"1", "2", 4, 14, true},
 			},
 			[][]interface{}{
 				{"2017-05-01", "2017-05-06",},

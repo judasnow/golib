@@ -1,8 +1,6 @@
 <component name="libraryTable">
   <library name="GOPATH &lt;golib&gt;">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../keep-activity-srv" />
-      <root url="file://$PROJECT_DIR$/../enterprise-games-2017" />
       <root url="file://$PROJECT_DIR$/../club-srv" />
       <root url="file://$PROJECT_DIR$/../activity-srv" />
       <root url="file://$PROJECT_DIR$/../pk-srv" />
@@ -32,11 +30,11 @@
       <root url="file://$PROJECT_DIR$/../user-srv" />
       <root url="file://$PROJECT_DIR$/../golang.org" />
       <root url="file://$PROJECT_DIR$/../gogogo" />
+      <root url="file://$PROJECT_DIR$/../enterprise-games-2017" />
+      <root url="file://$PROJECT_DIR$/../keep-activity-srv" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="file://$PROJECT_DIR$/../keep-activity-srv" />
-      <root url="file://$PROJECT_DIR$/../enterprise-games-2017" />
       <root url="file://$PROJECT_DIR$/../club-srv" />
       <root url="file://$PROJECT_DIR$/../activity-srv" />
       <root url="file://$PROJECT_DIR$/../pk-srv" />
@@ -66,6 +64,8 @@
       <root url="file://$PROJECT_DIR$/../user-srv" />
       <root url="file://$PROJECT_DIR$/../golang.org" />
       <root url="file://$PROJECT_DIR$/../gogogo" />
+      <root url="file://$PROJECT_DIR$/../enterprise-games-2017" />
+      <root url="file://$PROJECT_DIR$/../keep-activity-srv" />
     </SOURCES>
     <excluded>
       <root url="file://$PROJECT_DIR$" />

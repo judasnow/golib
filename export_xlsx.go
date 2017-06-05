@@ -13,9 +13,10 @@ import (
 
 // `xlsx:"name:name;format:2006-01-02"`
 const (
-	TAG_NAME = "xlsx"
-	TAG_SPLITER = ";"
-	TAG_KEY_VALUE_SPLITER = ":"
+	tag_name              = "xlsx"
+	tag_spliter           = ";"
+	tag_key_value_spliter = ":"
+	booltext_spliter = ","
 )
 
 // xlsx 文件的一个 sheet
@@ -27,11 +28,14 @@ type Sheet struct {
 	ExtraDatas [][]interface{}
 }
 
-// column 元信息
-type Tag struct {
+// column meta datas
+type tag struct {
 	Name string
 	// field 类型为 time.Time 时可指定其格式
 	TimeFormat string
+	// field 类型为 bool 时，最终表单中的文字描述
+	TrueText string
+	FalseText string
 }
 
 func ExportToXlsx(sheets []Sheet) ([]byte, error){
@@ -44,7 +48,6 @@ func ExportToXlsx(sheets []Sheet) ([]byte, error){
 	}
 
 	bufferFile := bytes.Buffer{}
-
 	if err := file.Write(&bufferFile); err != nil {
 		return []byte{}, err
 	} else {
@@ -53,38 +56,43 @@ func ExportToXlsx(sheets []Sheet) ([]byte, error){
 }
 
 func exportToSheet(file *xlsx.File, sheet Sheet) error {
-	value := reflect.ValueOf(sheet.Datas)
-	elemType := reflect.TypeOf(sheet.Datas).Elem()
-	kind := elemType.Kind()
-	if kind != reflect.Slice && kind != reflect.Array {
-		return errors.New("Sheet.Datas 类型需要是 Slice 或 Array")
+	// sheet.Datas kind 必须是一个 array 或者 slice 类型
+	datasValue := reflect.ValueOf(sheet.Datas)
+	datasKind := datasValue.Kind()
+	if datasKind != reflect.Slice && datasKind != reflect.Array {
+		return errors.New("Sheet.Datas 类型（Kind）需要是 Slice 或 Array")
 	}
 
-	tags := getXlsxTags(elemType)
+	datasElemType := reflect.TypeOf(sheet.Datas).Elem()
+	tags := getXlsxTags(datasElemType)
 
 	// 将刚取出的 tags 作为头部写入 xlsx
-	xlsxSheet, addSheetErr := file.AddSheet(sheet.Name);
+	xlsxSheet, addSheetErr := file.AddSheet(sheet.Name)
 	if addSheetErr != nil {
 		return addSheetErr
 	}
 
-	row := xlsxSheet.AddRow()
+	// 写入标题
+	// 标题由量部分组成 tags 以及 extraDatas 中的第一排
 	tagNames := pluckTagName(tags)
-
-	// 创建并写入标题
 	titles := tagNames
 	if sheet.ExtraDatas != nil {
 		for _, title := range sheet.ExtraDatas[0] {
-			titleStr := title.(string)
-			titles = append(titles, titleStr)
+			titleStr, ok := title.(string)
+			if !ok {
+				return errors.New("Sheet.ExtraDatas 中的第一行，作为 title，必须可以断言为 string")
+			} else {
+				titles = append(titles, titleStr)
+			}
 		}
 	}
+	row := xlsxSheet.AddRow()
 	row.WriteSlice(&titles, len(titles))
 
 	// 之后循环所有成员 写入 xlsx 文件
-	for lineNo := 0; lineNo < value.Len(); lineNo++ {
+	for lineNo := 0; lineNo < datasValue.Len(); lineNo++ {
 		xlsxRow := xlsxSheet.AddRow()
-		row := value.Index(lineNo)
+		row := datasValue.Index(lineNo)
 
 		for cloumnNo := 0; cloumnNo < row.NumField(); cloumnNo++ {
 			cell := xlsxRow.AddCell()
@@ -93,9 +101,9 @@ func exportToSheet(file *xlsx.File, sheet Sheet) error {
 			switch v := valueField.Interface().(type) {
 			case bool:
 				if v {
-					cell.SetString("是")
+					cell.SetString(tags[cloumnNo].TrueText)
 				} else {
-					cell.SetString("否")
+					cell.SetString(tags[cloumnNo].FalseText)
 				}
 			case time.Time:
 				cell.SetString(v.Format(tags[cloumnNo].TimeFormat))
@@ -120,11 +128,11 @@ func exportToSheet(file *xlsx.File, sheet Sheet) error {
 	return nil
 }
 
-func getXlsxTags(data reflect.Type) []Tag {
-	tags := []Tag{}
+func getXlsxTags(data reflect.Type) []tag {
+	tags := []tag{}
 
 	for i := 0; i < data.NumField(); i++ {
-		tagValue := data.Field(i).Tag.Get(TAG_NAME)
+		tagValue := data.Field(i).Tag.Get(tag_name)
 		tag := parseTag(tagValue)
 		tags = append(tags, tag)
 	}
@@ -132,26 +140,33 @@ func getXlsxTags(data reflect.Type) []Tag {
 	return tags
 }
 
-// 解析 tag
-func parseTag(tagString string) Tag {
-	tagItems := strings.Split(tagString, TAG_SPLITER)
+func parseTag(tagString string) tag {
+	tagItems := strings.Split(tagString, tag_spliter)
 
-	tag := Tag{}
+	tag := tag{}
 	for _, tagItem := range tagItems {
-		tagItemPair := strings.Split(tagItem, TAG_KEY_VALUE_SPLITER)
+		tagItemPair := strings.Split(tagItem, tag_key_value_spliter)
 
 		if tagItemPair[0] == "name" {
 			tag.Name = tagItemPair[1]
 		} else if tagItemPair[0] == "format" {
 			tag.TimeFormat = tagItemPair[1]
+		} else if tagItemPair[0] == "booltext" {
+			value := tagItemPair[1]
+			tag.TrueText, tag.FalseText, _ = parseBooltextTag(value)
 		}
 	}
 
 	return tag
 }
 
-// 取出所有 tag.Name
-func pluckTagName(tags []Tag) []string {
+// 解析 tag 中的 booltext
+func parseBooltextTag(value string) (string, string, error) {
+	booltextArgs := strings.Split(value, booltext_spliter)
+	return booltextArgs[0], booltextArgs[1], nil
+}
+
+func pluckTagName(tags []tag) []string {
 	tagNames := []string{}
 
 	for _, tag := range tags {
