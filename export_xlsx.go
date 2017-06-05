@@ -12,6 +12,7 @@ import (
 )
 
 // `xlsx:"name:name;format:2006-01-02"`
+// `xlsx:"name:boolname;booltext:是,否"`
 const (
 	tag_name              = "xlsx"
 	tag_spliter           = ";"
@@ -34,8 +35,12 @@ type tag struct {
 	// field 类型为 time.Time 时可指定其格式
 	TimeFormat string
 	// field 类型为 bool 时，最终表单中的文字描述
-	TrueText string
-	FalseText string
+	BoolText boolText
+}
+
+type boolText struct {
+	True string
+	False string
 }
 
 func ExportToXlsx(sheets []Sheet) ([]byte, error){
@@ -101,9 +106,9 @@ func exportToSheet(file *xlsx.File, sheet Sheet) error {
 			switch v := valueField.Interface().(type) {
 			case bool:
 				if v {
-					cell.SetString(tags[cloumnNo].TrueText)
+					cell.SetString(tags[cloumnNo].BoolText.True)
 				} else {
-					cell.SetString(tags[cloumnNo].FalseText)
+					cell.SetString(tags[cloumnNo].BoolText.False)
 				}
 			case time.Time:
 				cell.SetString(v.Format(tags[cloumnNo].TimeFormat))
@@ -153,7 +158,8 @@ func parseTag(tagString string) tag {
 			tag.TimeFormat = tagItemPair[1]
 		} else if tagItemPair[0] == "booltext" {
 			value := tagItemPair[1]
-			tag.TrueText, tag.FalseText, _ = parseBooltextTag(value)
+			_boolText, _ := parseBooltextTag(value)
+			tag.BoolText = _boolText
 		}
 	}
 
@@ -161,9 +167,12 @@ func parseTag(tagString string) tag {
 }
 
 // 解析 tag 中的 booltext
-func parseBooltextTag(value string) (string, string, error) {
+func parseBooltextTag(value string) (boolText, error) {
 	booltextArgs := strings.Split(value, booltext_spliter)
-	return booltextArgs[0], booltextArgs[1], nil
+	return boolText{
+		booltextArgs[0],
+		booltextArgs[1],
+	}, nil
 }
 
 func pluckTagName(tags []tag) []string {
