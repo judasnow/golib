@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="GOPATH &lt;golib&gt;">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../club-srv" />
+      <root url="file://$PROJECT_DIR$/../enterprise-games-2017" />
       <root url="file://$PROJECT_DIR$/../activity-srv" />
       <root url="file://$PROJECT_DIR$/../pk-srv" />
       <root url="file://$PROJECT_DIR$/../gps-srv" />
@@ -12,9 +12,11 @@
       <root url="file://$PROJECT_DIR$/../comment-srv" />
       <root url="file://$PROJECT_DIR$/../push-srv" />
       <root url="file://$PROJECT_DIR$/../message_gate" />
+      <root url="file://$PROJECT_DIR$/../club-srv" />
       <root url="file://$PROJECT_DIR$/../sidecar" />
       <root url="file://$PROJECT_DIR$/../union-api" />
       <root url="file://$PROJECT_DIR$/../api" />
+      <root url="file://$PROJECT_DIR$/../club-admin" />
       <root url="file://$PROJECT_DIR$/../common-srv" />
       <root url="file://$PROJECT_DIR$/../belle.v2017" />
       <root url="file://$PROJECT_DIR$/../storage-srv-local" />
@@ -30,12 +32,11 @@
       <root url="file://$PROJECT_DIR$/../user-srv" />
       <root url="file://$PROJECT_DIR$/../golang.org" />
       <root url="file://$PROJECT_DIR$/../gogogo" />
-      <root url="file://$PROJECT_DIR$/../enterprise-games-2017" />
       <root url="file://$PROJECT_DIR$/../keep-activity-srv" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="file://$PROJECT_DIR$/../club-srv" />
+      <root url="file://$PROJECT_DIR$/../enterprise-games-2017" />
       <root url="file://$PROJECT_DIR$/../activity-srv" />
       <root url="file://$PROJECT_DIR$/../pk-srv" />
       <root url="file://$PROJECT_DIR$/../gps-srv" />
@@ -46,9 +47,11 @@
       <root url="file://$PROJECT_DIR$/../comment-srv" />
       <root url="file://$PROJECT_DIR$/../push-srv" />
       <root url="file://$PROJECT_DIR$/../message_gate" />
+      <root url="file://$PROJECT_DIR$/../club-srv" />
       <root url="file://$PROJECT_DIR$/../sidecar" />
       <root url="file://$PROJECT_DIR$/../union-api" />
       <root url="file://$PROJECT_DIR$/../api" />
+      <root url="file://$PROJECT_DIR$/../club-admin" />
       <root url="file://$PROJECT_DIR$/../common-srv" />
       <root url="file://$PROJECT_DIR$/../belle.v2017" />
       <root url="file://$PROJECT_DIR$/../storage-srv-local" />
@@ -64,7 +67,6 @@
       <root url="file://$PROJECT_DIR$/../user-srv" />
       <root url="file://$PROJECT_DIR$/../golang.org" />
       <root url="file://$PROJECT_DIR$/../gogogo" />
-      <root url="file://$PROJECT_DIR$/../enterprise-games-2017" />
       <root url="file://$PROJECT_DIR$/../keep-activity-srv" />
     </SOURCES>
     <excluded>

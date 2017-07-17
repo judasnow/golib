@@ -2,6 +2,7 @@ package golib
 
 import (
 	"time"
+	"fmt"
 )
 
 // 传入一个 time.Time 返回 t 当天的零点
@@ -35,4 +36,28 @@ func GetDaysList(begin time.Time, end time.Time) []time.Time {
 
 	days = append(days, endDayZero)
 	return days
+}
+
+// 将指定秒数进格式化处理
+func ConvSecondsToHoursMinusSeconds(s int) string {
+	var h = s / 3600
+	var remainSeconds = s % 3600
+	var m = remainSeconds / 60
+	var _remainSeconds = remainSeconds % 60
+
+	var hoursStr string
+	if h > 0 {
+		hoursStr = fmt.Sprintf("%02d:", h)
+	} else {
+		hoursStr = "00:"
+	}
+
+	var mStr string
+	if m > 0 {
+		mStr = fmt.Sprintf("%02d:", m)
+	} else {
+		mStr = "00:"
+	}
+
+	return fmt.Sprintf("%s%s%02d", hoursStr, mStr, _remainSeconds)
 }

@@ -35,7 +35,7 @@ func PagingLoop(total int, perPage int, crtPage int, f func(limit int, offset in
 	for {
 		pageInfo := Paging(total, perPage, crtPage)
 
-		if (crtPage > pageInfo.Count || crtPage <= 0) {
+		if crtPage > pageInfo.Count || crtPage <= 0 {
 			return
 		} else {
 			// loop content

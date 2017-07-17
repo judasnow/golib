@@ -157,8 +157,7 @@ func parseTag(tagString string) tag {
 		} else if tagItemPair[0] == "format" {
 			tag.TimeFormat = tagItemPair[1]
 		} else if tagItemPair[0] == "booltext" {
-			value := tagItemPair[1]
-			_boolText := parseBooltextTag(value)
+			_boolText := parseBooltextTag(tagItemPair[1])
 			tag.BoolText = _boolText
 		}
 	}
