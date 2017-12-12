@@ -41,7 +41,7 @@ func TestPaging2(t *testing.T) {
 	for {
 		pageInfo := Paging(tasksCount, perPage, crtPage)
 
-		if (crtPage > pageInfo.Count || crtPage <= 0) {
+		if crtPage > pageInfo.Count || crtPage <= 0 {
 			return
 		} else {
 			// loop content
@@ -59,7 +59,7 @@ func TestPagingLoop(t *testing.T) {
 
 // 对 slice 进行分页显示
 func TestPagingLoop2(t *testing.T) {
-	x := []interface{}{1,2,3,4,5,6,7,8,9,10}
+	x := []interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	SlicePagingLoop(x, 3, 1, func(subSlice []interface{}) bool {
 		fmt.Println(subSlice)
 		return true
@@ -68,7 +68,7 @@ func TestPagingLoop2(t *testing.T) {
 
 // 第一次返回 false 停止循环
 func TestPagingLoopReutrnFalse(t *testing.T) {
-	x := []interface{}{1,2,3,4,5,6,7,8,9,10}
+	x := []interface{}{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	SlicePagingLoop(x, 3, 1, func(subSlice []interface{}) bool {
 		fmt.Println(subSlice)
 		return false

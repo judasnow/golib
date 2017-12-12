@@ -4,7 +4,6 @@ import (
 	"testing"
 )
 
-
 func TestIsValidEmail(t *testing.T) {
 	match, _ := IsValidEmail("a@a.a")
 	if match {

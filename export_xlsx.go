@@ -1,12 +1,12 @@
 package golib
 
 import (
+	"bytes"
+	"errors"
 	"fmt"
 	"reflect"
 	"strings"
 	"time"
-	"errors"
-	"bytes"
 
 	"github.com/tealeg/xlsx"
 )
@@ -17,7 +17,7 @@ const (
 	tag_name              = "xlsx"
 	tag_spliter           = ";"
 	tag_key_value_spliter = ":"
-	booltext_spliter = ","
+	booltext_spliter      = ","
 )
 
 // xlsx 文件的一个 sheet
@@ -39,11 +39,11 @@ type tag struct {
 }
 
 type boolText struct {
-	True string
+	True  string
 	False string
 }
 
-func ExportToXlsx(sheets []Sheet) ([]byte, error){
+func ExportToXlsx(sheets []Sheet) ([]byte, error) {
 	file := xlsx.NewFile()
 
 	for _, sheet := range sheets {

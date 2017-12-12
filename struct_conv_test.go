@@ -1,11 +1,9 @@
 package golib
 
-
-import(
-	"testing"
+import (
 	"reflect"
+	"testing"
 )
-
 
 func TestStructConv(t *testing.T) {
 	type Foo struct {
