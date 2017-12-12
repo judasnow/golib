@@ -1,4 +1,4 @@
-package golib
+package paging
 
 type PageInfo struct {
 	Count  int
