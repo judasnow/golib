@@ -10,5 +10,7 @@ func TestGetSimplePagingInfo(t *testing.T) {
 }
 
 func TestHtmlPaging(t *testing.T) {
-	fmt.Print(HtmlPaging(8, 1, "http://foobar.com"))
+	for _, item := range HtmlPaging(14, 13, "http://foobar.com") {
+		fmt.Println(item)
+	}
 }

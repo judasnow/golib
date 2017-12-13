@@ -66,10 +66,28 @@ func getNextPage(totalPage int, crtPage int, baseLink string) PageItem {
 		nextPageEnable = true
 	}
 	return PageItem{
-		Text:   "上一页",
+		Text:   "下一页",
 		Link:   fmt.Sprintf("%s?page=%d", baseLink, nextPage),
 		Enable: nextPageEnable,
 	}
+}
+
+func createPages(begin int, end int, crtPage int, baseLink string) []PageItem {
+	var pages []PageItem
+	for i := begin; i <= end; i++ {
+		var enable bool
+		if crtPage == i {
+			enable = false
+		} else {
+			enable = true
+		}
+		pages = append(pages, PageItem{
+			Text:   strconv.Itoa(i),
+			Link:   fmt.Sprintf("%s?page=%d", baseLink, i),
+			Enable: enable,
+		})
+	}
+	return pages
 }
 
 func HtmlPaging(totalPage int, crtPage int, baseLink string) []PageItem {
@@ -77,34 +95,75 @@ func HtmlPaging(totalPage int, crtPage int, baseLink string) []PageItem {
 
 	if totalPage <= 8 {
 		// 全部显示
-		for i := 1; i <= 8; i++ {
-			var enable bool
-			if crtPage == i {
-				enable = false
-			} else {
-				enable = true
-			}
-			pages = append(pages, PageItem{
-				Text:   strconv.Itoa(i),
-				Link:   fmt.Sprintf("%s?page=%s", baseLink, i),
-				Enable: enable,
-			})
-		}
+		pages = createPages(1, 8, crtPage, baseLink)
 	} else {
 		if crtPage < 7 {
 			if crtPage <= 5 {
 				// 显示前 5 个，以及后两个
+				pages = createPages(1, 5, crtPage, baseLink)
+				pages = append(pages, PageItem{
+					Text: "...",
+					Enable: false,
+				})
+				pages = append(pages, PageItem{
+					Text: fmt.Sprintf("%d", totalPage-1),
+					Link: fmt.Sprintf("%s?page=%d", baseLink, totalPage-1),
+				})
+				pages = append(pages, PageItem{
+					Text: fmt.Sprintf("%d", totalPage),
+					Link: fmt.Sprintf("%s?page=%d", baseLink, totalPage),
+				})
 			} else {
 				// 显示前 8 个，以及最后两个
+				pages = createPages(1, 8, crtPage, baseLink)
+				pages = append(pages, PageItem{
+					Text: "...",
+					Enable: false,
+				})
+				pages = append(pages, PageItem{
+					Text: fmt.Sprintf("%d", totalPage-1),
+					Link: fmt.Sprintf("%s?page=%d", baseLink, totalPage-1),
+				})
+				pages = append(pages, PageItem{
+					Text: fmt.Sprintf("%d", totalPage),
+					Link: fmt.Sprintf("%s?page=%d", baseLink, totalPage),
+				})
 			}
 		} else if crtPage > totalPage-7 {
 			if crtPage > totalPage-5 {
 				// 显示后 5 个，以及前 2 个
+				pages = createPages(1, 2, crtPage, baseLink)
+				pages = append(pages, PageItem{
+					Text: "...",
+					Enable: false,
+				})
+				pagesTail := createPages(totalPage-5, totalPage, crtPage, baseLink)
+				pages = append(pages, pagesTail...)
 			} else {
 				// 显示后 8 个，以及前 2 个
+				pages = createPages(1, 2, crtPage, baseLink)
+				pages = append(pages, PageItem{
+					Text: "...",
+					Enable: false,
+				})
+				pagesTail := createPages(totalPage-8, totalPage, crtPage, baseLink)
+				pages = append(pages, pagesTail...)
 			}
 		} else {
 			// 显示当前页前后两页，以及开头结尾各两页
+			pages = createPages(1, 2, crtPage, baseLink)
+			pages = append(pages, PageItem{
+				Text: "...",
+				Enable: false,
+			})
+			pagesMiddle := createPages(crtPage-2, crtPage+2, crtPage, baseLink)
+			pages = append(pages, pagesMiddle...)
+			pages = append(pages, PageItem{
+				Text: "...",
+				Enable: false,
+			})
+			pagesTail := createPages(totalPage-8, totalPage, crtPage, baseLink)
+			pages = append(pages, pagesTail...)
 		}
 	}
 
