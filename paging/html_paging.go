@@ -137,7 +137,7 @@ func HtmlPaging(totalPage int, crtPage int, baseLink string) []PageItem {
 					Text: "...",
 					Enable: false,
 				})
-				pagesTail := createPages(totalPage-5, totalPage, crtPage, baseLink)
+				pagesTail := createPages(totalPage-4, totalPage, crtPage, baseLink)
 				pages = append(pages, pagesTail...)
 			} else {
 				// 显示后 8 个，以及前 2 个
@@ -146,7 +146,7 @@ func HtmlPaging(totalPage int, crtPage int, baseLink string) []PageItem {
 					Text: "...",
 					Enable: false,
 				})
-				pagesTail := createPages(totalPage-8, totalPage, crtPage, baseLink)
+				pagesTail := createPages(totalPage-7, totalPage, crtPage, baseLink)
 				pages = append(pages, pagesTail...)
 			}
 		} else {
