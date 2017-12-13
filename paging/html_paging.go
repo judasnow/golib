@@ -162,7 +162,7 @@ func HtmlPaging(totalPage int, crtPage int, baseLink string) []PageItem {
 				Text: "...",
 				Enable: false,
 			})
-			pagesTail := createPages(totalPage-2, totalPage, crtPage, baseLink)
+			pagesTail := createPages(totalPage-1, totalPage, crtPage, baseLink)
 			pages = append(pages, pagesTail...)
 		}
 	}
