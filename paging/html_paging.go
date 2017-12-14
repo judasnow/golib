@@ -90,7 +90,12 @@ func createPages(begin int, end int, crtPage int, baseLink string) []PageItem {
 	return pages
 }
 
-func HtmlPaging(totalPage int, crtPage int, baseLink string) []PageItem {
+func GetTotalPage(count int, perPage int) int {
+	return ((count - 1) / perPage) + 1
+}
+
+func HtmlPaging(count int, perPage int, crtPage int, baseLink string) []PageItem {
+	totalPage := GetTotalPage(count, perPage)
 	var pages []PageItem
 
 	if totalPage <= 8 {
@@ -102,7 +107,7 @@ func HtmlPaging(totalPage int, crtPage int, baseLink string) []PageItem {
 				// 显示前 5 个，以及后两个
 				pages = createPages(1, 5, crtPage, baseLink)
 				pages = append(pages, PageItem{
-					Text: "...",
+					Text:   "...",
 					Enable: false,
 				})
 				pages = append(pages, PageItem{
@@ -117,7 +122,7 @@ func HtmlPaging(totalPage int, crtPage int, baseLink string) []PageItem {
 				// 显示前 8 个，以及最后两个
 				pages = createPages(1, 8, crtPage, baseLink)
 				pages = append(pages, PageItem{
-					Text: "...",
+					Text:   "...",
 					Enable: false,
 				})
 				pages = append(pages, PageItem{
@@ -134,7 +139,7 @@ func HtmlPaging(totalPage int, crtPage int, baseLink string) []PageItem {
 				// 显示后 5 个，以及前 2 个
 				pages = createPages(1, 2, crtPage, baseLink)
 				pages = append(pages, PageItem{
-					Text: "...",
+					Text:   "...",
 					Enable: false,
 				})
 				pagesTail := createPages(totalPage-4, totalPage, crtPage, baseLink)
@@ -143,7 +148,7 @@ func HtmlPaging(totalPage int, crtPage int, baseLink string) []PageItem {
 				// 显示后 8 个，以及前 2 个
 				pages = createPages(1, 2, crtPage, baseLink)
 				pages = append(pages, PageItem{
-					Text: "...",
+					Text:   "...",
 					Enable: false,
 				})
 				pagesTail := createPages(totalPage-7, totalPage, crtPage, baseLink)
@@ -153,13 +158,13 @@ func HtmlPaging(totalPage int, crtPage int, baseLink string) []PageItem {
 			// 显示当前页前后两页，以及开头结尾各两页
 			pages = createPages(1, 2, crtPage, baseLink)
 			pages = append(pages, PageItem{
-				Text: "...",
+				Text:   "...",
 				Enable: false,
 			})
 			pagesMiddle := createPages(crtPage-2, crtPage+2, crtPage, baseLink)
 			pages = append(pages, pagesMiddle...)
 			pages = append(pages, PageItem{
-				Text: "...",
+				Text:   "...",
 				Enable: false,
 			})
 			pagesTail := createPages(totalPage-1, totalPage, crtPage, baseLink)
