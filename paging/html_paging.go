@@ -85,7 +85,7 @@ func createPages(begin int, end int, crtPage int, baseLink string) []PageItem {
 
 		// TODO 已有 page 参数的处理
 		var link string
-		if strings.Contains(link, "?") {
+		if strings.Contains(baseLink, "?") {
 			link = fmt.Sprintf("%s&page=%d", baseLink, i)
 		} else {
 			link = fmt.Sprintf("%s?page=%d", baseLink, i)
