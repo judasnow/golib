@@ -3,6 +3,7 @@ package paging
 import (
 	"strconv"
 	"fmt"
+	"strings"
 )
 
 type SimplePaging struct {
@@ -81,6 +82,15 @@ func createPages(begin int, end int, crtPage int, baseLink string) []PageItem {
 		} else {
 			enable = true
 		}
+
+		// TODO 已有 page 参数的处理
+		var link string
+		if strings.Contains(link, "?") {
+			link = fmt.Sprintf("%s&page=%d", baseLink, i)
+		} else {
+			link = fmt.Sprintf("%s?page=%d", baseLink, i)
+		}
+
 		pages = append(pages, PageItem{
 			Text:   strconv.Itoa(i),
 			Link:   fmt.Sprintf("%s?page=%d", baseLink, i),
