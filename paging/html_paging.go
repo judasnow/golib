@@ -4,6 +4,8 @@ import (
 	"strconv"
 	"fmt"
 	"strings"
+	"net/url"
+	"github.com/Sirupsen/logrus"
 )
 
 type SimplePaging struct {
@@ -48,11 +50,14 @@ func getPrevPage(crtPage int, baseLink string) PageItem {
 	} else {
 		prevPageEnable = true
 	}
+
+	link := createLink(baseLink, prevPage)
 	return PageItem{
 		Text:   "上一页",
-		Link:   fmt.Sprintf("%s?page=%d", baseLink, prevPage),
+		Link:   link,
 		Enable: prevPageEnable,
 	}
+
 }
 
 func getNextPage(totalPage int, crtPage int, baseLink string) PageItem {
@@ -66,11 +71,33 @@ func getNextPage(totalPage int, crtPage int, baseLink string) PageItem {
 	} else {
 		nextPageEnable = true
 	}
+
+	link := createLink(baseLink, nextPage)
 	return PageItem{
 		Text:   "下一页",
-		Link:   fmt.Sprintf("%s?page=%d", baseLink, nextPage),
+		Link:   link,
 		Enable: nextPageEnable,
 	}
+}
+
+func createLink(baseLink string, page int) string {
+	// 删除可能已经存在的 page 参数
+	url, pareUrlErr := url.Parse(baseLink)
+	if pareUrlErr != nil {
+		logrus.WithError(pareUrlErr).Error("解析 url 失败")
+		return ""
+	}
+	v := url.Query()
+	v.Del("page")
+	url.RawQuery = v.Encode()
+
+	var link string
+	if strings.Contains(baseLink, "?") {
+		link = fmt.Sprintf("%s&page=%d", url.String(), page)
+	} else {
+		link = fmt.Sprintf("%s?page=%d", url.String(), page)
+	}
+	return link
 }
 
 func createPages(begin int, end int, crtPage int, baseLink string) []PageItem {
@@ -83,17 +110,10 @@ func createPages(begin int, end int, crtPage int, baseLink string) []PageItem {
 			enable = true
 		}
 
-		// TODO 已有 page 参数的处理
-		var link string
-		if strings.Contains(baseLink, "?") {
-			link = fmt.Sprintf("%s&page=%d", baseLink, i)
-		} else {
-			link = fmt.Sprintf("%s?page=%d", baseLink, i)
-		}
-
+		link := createLink(baseLink, i)
 		pages = append(pages, PageItem{
 			Text:   strconv.Itoa(i),
-			Link:   fmt.Sprintf("%s?page=%d", link, i),
+			Link:   link,
 			Enable: enable,
 		})
 	}
@@ -111,6 +131,7 @@ func HtmlPaging(count int, perPage int, crtPage int, baseLink string) []PageItem
 	if totalPage <= 8 {
 		// 全部显示
 		pages = createPages(1, totalPage, crtPage, baseLink)
+		return pages
 	} else {
 		if crtPage < 7 {
 			if crtPage <= 5 {
@@ -122,11 +143,11 @@ func HtmlPaging(count int, perPage int, crtPage int, baseLink string) []PageItem
 				})
 				pages = append(pages, PageItem{
 					Text: fmt.Sprintf("%d", totalPage-1),
-					Link: fmt.Sprintf("%s?page=%d", baseLink, totalPage-1),
+					Link: createLink(baseLink, totalPage-1),
 				})
 				pages = append(pages, PageItem{
 					Text: fmt.Sprintf("%d", totalPage),
-					Link: fmt.Sprintf("%s?page=%d", baseLink, totalPage),
+					Link: createLink(baseLink, totalPage),
 				})
 			} else {
 				// 显示前 8 个，以及最后两个
@@ -137,11 +158,11 @@ func HtmlPaging(count int, perPage int, crtPage int, baseLink string) []PageItem
 				})
 				pages = append(pages, PageItem{
 					Text: fmt.Sprintf("%d", totalPage-1),
-					Link: fmt.Sprintf("%s?page=%d", baseLink, totalPage-1),
+					Link: createLink(baseLink, totalPage-1),
 				})
 				pages = append(pages, PageItem{
 					Text: fmt.Sprintf("%d", totalPage),
-					Link: fmt.Sprintf("%s?page=%d", baseLink, totalPage),
+					Link: createLink(baseLink, totalPage),
 				})
 			}
 		} else if crtPage > totalPage-7 {
