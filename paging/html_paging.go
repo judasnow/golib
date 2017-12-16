@@ -125,6 +125,10 @@ func GetTotalPage(count int, perPage int) int {
 }
 
 func HtmlPaging(count int, perPage int, crtPage int, baseLink string) []PageItem {
+	if crtPage <= 0 {
+		crtPage = 1
+	}
+
 	totalPage := GetTotalPage(count, perPage)
 	var pages []PageItem
 
