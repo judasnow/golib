@@ -42,10 +42,10 @@ type PageItem struct {
 func getPrevPage(crtPage int, baseLink string) PageItem {
 	prevPage := crtPage - 1
 	if prevPage <= 0 {
-		prevPage = 1
+		prevPage = 0
 	}
 	var prevPageEnable bool
-	if prevPage == 1 {
+	if prevPage == 0 {
 		prevPageEnable = false
 	} else {
 		prevPageEnable = true
