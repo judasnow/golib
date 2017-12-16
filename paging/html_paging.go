@@ -62,11 +62,11 @@ func getPrevPage(crtPage int, baseLink string) PageItem {
 
 func getNextPage(totalPage int, crtPage int, baseLink string) PageItem {
 	nextPage := crtPage + 1
-	if nextPage > totalPage {
+	if nextPage > totalPage + 1 {
 		nextPage = totalPage
 	}
 	var nextPageEnable bool
-	if nextPage == totalPage {
+	if nextPage == totalPage + 1{
 		nextPageEnable = false
 	} else {
 		nextPageEnable = true
