@@ -93,7 +93,7 @@ func createPages(begin int, end int, crtPage int, baseLink string) []PageItem {
 
 		pages = append(pages, PageItem{
 			Text:   strconv.Itoa(i),
-			Link:   fmt.Sprintf("%s?page=%d", baseLink, i),
+			Link:   fmt.Sprintf("%s?page=%d", link, i),
 			Enable: enable,
 		})
 	}
