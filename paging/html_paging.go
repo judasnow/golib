@@ -131,7 +131,6 @@ func HtmlPaging(count int, perPage int, crtPage int, baseLink string) []PageItem
 	if totalPage <= 8 {
 		// 全部显示
 		pages = createPages(1, totalPage, crtPage, baseLink)
-		return pages
 	} else {
 		if crtPage < 7 {
 			if crtPage <= 5 {
