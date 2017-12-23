@@ -8,9 +8,8 @@ import (
 	"github.com/juju/errors"
 )
 
-var db *gorm.DB
 
-func Find(key string, value interface{}, allowNull bool, m interface{}) (interface{}, error) {
+func Find(db *gorm.DB, key string, value interface{}, allowNull bool, m interface{}) (interface{}, error) {
 	q := db.Where(fmt.Sprintf("%s = ?", key), value).First(&m)
 	if q.RecordNotFound() {
 		if allowNull {

@@ -8,15 +8,17 @@ import (
 	"github.com/juju/errors"
 )
 
+var db2 *gorm.DB
+
 func init() {
 	var err error
-	db, err = gorm.Open("mysql", "vagrant:vagrant@(vagrant:3306)/golib?charset=utf8&parseTime=True&loc=Local")
+	db2, err = gorm.Open("mysql", "vagrant:vagrant@(vagrant:3306)/golib?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		panic("failed to connect database")
 	}
-	defer db.Close()
+	defer db2.Close()
 	// Migrate the schema
-	db.AutoMigrate(&Product{})
+	db2.AutoMigrate(&Product{})
 
 	p, err := ProductFind("code", "L1212", true)
 	fmt.Println(p)
@@ -30,7 +32,7 @@ type Product struct {
 
 func ProductFind(key string, value interface{}, allowNull bool) (Product, error) {
 	product := Product{}
-	i, findErr := Find(key, value, allowNull, product)
+	i, findErr := Find(db2, key, value, allowNull, product)
 	if p, ok := i.(Product); !ok {
 		return Product{}, errors.New("返回类型错误")
 	} else {
